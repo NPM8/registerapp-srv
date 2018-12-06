@@ -1,0 +1,18 @@
+{
+  "name": "registerapp-srv",
+  "version": "1.0.0",
+  "description": "API for registerapp-rn",
+  "author": "Dawid Małysa <nnnp.dawid@gmail.com>",
+  "keywords": [],
+  "license": "ISC",
+  "main": "index.js",
+  "scripts": {
+    "start": "./bin/registerapp-srv",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepublushOnly": "npm t"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4"
+  }
+}
