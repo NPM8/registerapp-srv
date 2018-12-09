@@ -1,6 +1,7 @@
 'use strict'
 const express = require('express')
 const bodyParser = require('body-parser')
+const loki = require('lokijs');
 
 module.exports = function main (options, cb) {
   // Set default options
@@ -38,6 +39,7 @@ module.exports = function main (options, cb) {
   // Create the express app
   const app = express()
 
+  let db = new loki('./data/main.json')
   // Common middleware
   // app.use(/* ... */)
   app.use(bodyParser.json())

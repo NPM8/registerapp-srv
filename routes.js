@@ -6,6 +6,6 @@ const addUser = require('./handlers/addUser')
 module.exports = function (app, opts) {
   // Setup routes, middleware, and handlers
   app.get('/', simple)
-  app.get('/add', addUser)
-  app.get('/configured', configured(opts))
+  app.post('/add', addUser)
+  app.post('/configured', configured(opts))
 }

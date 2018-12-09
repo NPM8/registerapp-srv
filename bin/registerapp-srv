@@ -4,5 +4,5 @@
 // Pass configuration to application
 require('../')({
   port: 8000,
-  host: 'localhost'
+  host: '192.168.0.80'
 })
