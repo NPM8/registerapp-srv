@@ -7,7 +7,7 @@
   "license": "ISC",
   "main": "index.js",
   "scripts": {
-    "start": "./bin/registerapp-srv",
+    "start": "node ./bin/registerapp-srv",
     "test": "echo \"Error: no test specified\" && exit 1",
     "prepublushOnly": "npm t"
   },
