@@ -1,6 +1,6 @@
-'use strict'
-const express = require('express')
-const bodyParser = require('body-parser')
+'use strict';
+const express = require('express');
+const bodyParser = require('body-parser');
 const loki = require('lokijs');
 
 module.exports = function main (options, cb) {
@@ -39,10 +39,42 @@ module.exports = function main (options, cb) {
   // Create the express app
   const app = express()
 
-  let db = new loki('./data/main.json')
-  // Common middleware
+    let col
+    const data = new loki('./data/main.json', {
+      verbose: true,
+      autoload: true,
+      autoloadCallback: load => {
+        // col = load.getCollection('users')
+      }
+    });
+    col = data.getCollection('users');
+    console.log(col)
+    if (col == null) {
+      col = data.addCollection('users', {
+        unique: ['id']
+      });
+      col.insert({
+        id: 1,
+        username: "dawid",
+        password: "test"
+      });
+      col.insert({
+        id: 2,
+        username: "test2",
+        password: "lol"
+      });
+      data.saveDatabase(err => {
+        if (err) console.log(err);
+        else console.log("Db saved")
+      });
+    }
+    //
+    app.set('col', col);
+    app.set('data', data);
+
+    // Common middleware
   // app.use(/* ... */)
-  app.use(bodyParser.json())
+  app.use(bodyParser.json());
 
   // Register routes
   // @NOTE: require here because this ensures that even syntax errors
@@ -61,9 +93,10 @@ module.exports = function main (options, cb) {
         level: 'warning'
       }]
     })
-  })
+  });
+
   app.use(function fiveHundredHandler (err, req, res, next) {
-    console.error(err)
+    console.error(err);
     res.status(500).json({
       messages: [{
         code: err.code || 'InternalServerError',
@@ -71,7 +104,7 @@ module.exports = function main (options, cb) {
         level: 'error'
       }]
     })
-  })
+  });
 
   // Start server
   server = app.listen(opts.port, opts.host, function (err) {
